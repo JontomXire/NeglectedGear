@@ -17,16 +17,12 @@ This is command will generate a warning message on your screen. It can be useful
 
 ### Test item scoring
 
-Syntax: `/bg test <item ID>`
+Syntax: `/ng test <item ID>`
 
 This is a test/debug command that will give the value of an item without needing to have the item link available.
 
-Not currently implemented.
-
 ## TODO:
 * Import stat weightings.
-* Implement individual gear scoring.
-* Implement item test scoring.
 * Implement UI modification to display item scores.
 * Implement item scoring across raid.
 * Implement dialogue to list item scores across raid, filtering out players who cannot/should not use item.

@@ -12,6 +12,7 @@ embeds.xml
 
 NeglectedGear.lua
 
+data.lua
 output.lua
 settings.lua
 

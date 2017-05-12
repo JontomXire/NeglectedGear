@@ -11,8 +11,54 @@ NeglectedGear.minor_version = 1;
 NeglectedGear.event_queue = {};
 
 
+function NeglectedGear:ValueItem(item, target)
+    score = 0;
+
+    class = UnitClass(target);
+    if nil == class
+    then
+        NeglectedGear:DebugMessage(3, "Target '" .. target .. "' is not recognised.");
+    else
+        weightings = NG_Weightings[class];
+        stats = GetItemStats(item);
+        for stat, value in pairs(stats)
+        do
+            if weightings[stat]
+            then
+                score = score + (value * weightings[stat]);
+            end
+        end
+    end
+
+    return score;
+end
+
+
 function NeglectedGear:TestItem(item)
-    NeglectedGear:ChatMessage("Item test is not implemented yet.");
+    if strsub(item, 1, 5) ~= "item:"
+    then
+        item = "item:" .. tostring(tonumber(item));
+    end
+    name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
+    if nil == name
+    then
+        NeglectedGear:ChatMessage("Error: " .. item .. " is not a valid item link.")
+    else
+        old_item = GetInventoryItemLink("player", NG_SlotID[loc]);
+        old_name = GetItemInfo(old_item);
+
+        NeglectedGear:ChatMessage("Comparing " .. name .. " to " .. old_name .. ".");
+
+        value = NeglectedGear:ValueItem(item, "player");
+        old_value = NeglectedGear:ValueItem(old_item, "player");
+
+        if value >= old_value
+        then
+            NeglectedGear:ChatMessage(name .. ": " .. tostring(value) .. "(+" .. tostring(value - old_value) .. ")");
+        else
+            NeglectedGear:ChatMessage(name .. ": " .. tostring(value) .. "(-" .. tostring(old_value - value) .. ")");
+        end
+    end
 end
 
 
