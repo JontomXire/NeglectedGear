@@ -5,9 +5,25 @@ This addon scores gear according to a characters class and spec. The stat weight
 
 The gear scoring also allows players to evaluate their gear to help them decide how best to improve it.
 
+## Slash commands
+
+Syntax: `/ng <cmd> [options]`
+
+### Send warning message
+
+Syntax: `/ng warn <text>`
+
+This is command will generate a warning message on your screen. It can be useful in macros.
+
+### Test item scoring
+
+Syntax: `/bg test <item ID>`
+
+This is a test/debug command that will give the value of an item without needing to have the item link available.
+
+Not currently implemented.
 
 ## TODO:
-* Basic addon framework.
 * Import stat weightings.
 * Implement individual gear scoring.
 * Implement item test scoring.

@@ -1,0 +1,19 @@
+## Interface: 30300
+## Title: Neglected Gear
+## Notes: Gear addon for guild Neglect
+## Author: Jontom Xire
+## SavedVariables: NeglectedGearDB
+## SavedVariablesPerCharacter: NeglectedGearCharDB
+## Dependencies:
+
+#@no-lib-strip@
+embeds.xml
+#@end-no-lib-strip@
+
+NeglectedGear.lua
+
+output.lua
+settings.lua
+
+NeglectedGear.xml
+
