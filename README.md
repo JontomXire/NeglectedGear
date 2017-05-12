@@ -23,7 +23,7 @@ This is a test/debug command that will give the value of an item without needing
 
 ## TODO:
 * Import stat weightings.
-* Implement UI modification to display item scores.
+* When inspecting someone, make the scores relevant for their class and spec (if possible).
 * Implement item scoring across raid.
 * Implement dialogue to list item scores across raid, filtering out players who cannot/should not use item.
 * Implement full character gear scoring.

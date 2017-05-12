@@ -5,17 +5,6 @@ local NeglectedGear = _G.NeglectedGear
 
 
 NG_SlotID = {
-    ["INVTYPE_RELIC"] = 18,
-    ["INVTYPE_TRINKET"] = 33,
-    ["INVTYPE_2HWEAPON"] = 16,
-    ["INVTYPE_WEAPONMAINHAND"] = 16,
-    ["INVTYPE_WEAPONOFFHAND"] = 17,
-    ["INVTYPE_RANGED"] = 18,
-    ["INVTYPE_THROWN"] = 18,
-    ["INVTYPE_RANGEDRIGHT"] = 18,
-    ["INVTYPE_SHIELD"] = 17,
-    ["INVTYPE_WEAPON"] = 36,
-    ["INVTYPE_HOLDABLE"] = 17,
     ["INVTYPE_HEAD"] = 1,
     ["INVTYPE_NECK"] = 2,
     ["INVTYPE_SHOULDER"] = 3,
@@ -27,8 +16,19 @@ NG_SlotID = {
     ["INVTYPE_FEET"] = 8,
     ["INVTYPE_WRIST"] = 9,
     ["INVTYPE_HAND"] = 10,
-    ["INVTYPE_FINGER"] = 31,
+    ["INVTYPE_FINGER"] = 11,
+    ["INVTYPE_TRINKET"] = 13,
     ["INVTYPE_CLOAK"] = 15,
+    ["INVTYPE_WEAPON"] = 16,
+    ["INVTYPE_2HWEAPON"] = 16,
+    ["INVTYPE_WEAPONMAINHAND"] = 16,
+    ["INVTYPE_WEAPONOFFHAND"] = 17,
+    ["INVTYPE_HOLDABLE"] = 17,
+    ["INVTYPE_SHIELD"] = 17,
+    ["INVTYPE_RELIC"] = 18,
+    ["INVTYPE_RANGED"] = 18,
+    ["INVTYPE_THROWN"] = 18,
+    ["INVTYPE_RANGEDRIGHT"] = 18
 }
 
 
@@ -48,7 +48,7 @@ NG_Weightings = {
     ["Priest"] = {
         ["ITEM_MOD_INTELLECT_SHORT"] = 10
     },
-    ["DeathKnight"] = {
+    ["Death Knight"] = {
         ["ITEM_MOD_STRENGTH_SHORT"] = 10
     },
     ["Shaman"] = {
@@ -58,9 +58,6 @@ NG_Weightings = {
         ["ITEM_MOD_INTELLECT_SHORT"] = 10
     },
     ["Warlock"] = {
-        ["ITEM_MOD_INTELLECT_SHORT"] = 10
-    },
-    ["Monk"] = {
         ["ITEM_MOD_INTELLECT_SHORT"] = 10
     },
     ["Druid"] = {

@@ -6,21 +6,21 @@ local NeglectedGear = _G.NeglectedGear
 
 
 NeglectedGear.major_version = 0;
-NeglectedGear.minor_version = 1;
+NeglectedGear.minor_version = 2;
 
 NeglectedGear.event_queue = {};
 
 
 function NeglectedGear:ValueItem(item, target)
-    score = 0;
+    local score = 0;
 
-    class = UnitClass(target);
+    local class = UnitClass(target);
     if nil == class
     then
         NeglectedGear:DebugMessage(3, "Target '" .. target .. "' is not recognised.");
     else
-        weightings = NG_Weightings[class];
-        stats = GetItemStats(item);
+        local weightings = NG_Weightings[class];
+        local stats = GetItemStats(item);
         for stat, value in pairs(stats)
         do
             if weightings[stat]
@@ -39,18 +39,18 @@ function NeglectedGear:TestItem(item)
     then
         item = "item:" .. tostring(tonumber(item));
     end
-    name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
+    local name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
     if nil == name
     then
         NeglectedGear:ChatMessage("Error: " .. item .. " is not a valid item link.")
     else
-        old_item = GetInventoryItemLink("player", NG_SlotID[loc]);
-        old_name = GetItemInfo(old_item);
+        local old_item = GetInventoryItemLink("player", NG_SlotID[loc]);
+        local old_name = GetItemInfo(old_item);
 
         NeglectedGear:ChatMessage("Comparing " .. name .. " to " .. old_name .. ".");
 
-        value = NeglectedGear:ValueItem(item, "player");
-        old_value = NeglectedGear:ValueItem(old_item, "player");
+        local value = NeglectedGear:ValueItem(item, "player");
+        local old_value = NeglectedGear:ValueItem(old_item, "player");
 
         if value >= old_value
         then
@@ -83,6 +83,13 @@ function NeglectedGear_OnLoad(self)
     NeglectedGear:InitSettings();
 
     self:RegisterEvent("PLAYER_LOGIN");
+    self:RegisterEvent("PLAYER_REGEN_ENABLED");
+    self:RegisterEvent("PLAYER_REGEN_DISABLED");
+
+    GameTooltip:HookScript("OnTooltipSetItem", NeglectedGear_HookSetItem)
+    ShoppingTooltip1:HookScript("OnTooltipSetItem", NeglectedGear_HookCompareItem)
+    ShoppingTooltip2:HookScript("OnTooltipSetItem", NeglectedGear_HookCompareItem2)
+    ItemRefTooltip:HookScript("OnTooltipSetItem", NeglectedGear_HookRefItem)
 
     -- Set up CLI.
     _G["SLASH_NG1"] = "/ng";
@@ -99,6 +106,15 @@ function NeglectedGear_OnEvent(self, event, ...)
     if event == "PLAYER_LOGIN"
     then
         NeglectedGear:UpdateSettings();
+        NeglectedGear.in_combat = false;
+
+    elseif event == "PLAYER_REGEN_ENABLED"
+    then
+        NeglectedGear.in_combat = false;
+
+    elseif event == "PLAYER_REGEN_DISABLED"
+    then
+        NeglectedGear.in_combat = true;
 
     elseif(event == "HIDE_WARNING")
     then
