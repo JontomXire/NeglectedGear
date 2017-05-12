@@ -26,6 +26,8 @@ function NeglectedGear:ValueItem(item, target)
             if weightings[stat]
             then
                 score = score + (value * weightings[stat]);
+            else
+--                NeglectedGear:DebugMessage(1, "Ignoring " .. stat);
             end
         end
     end
