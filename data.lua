@@ -45,45 +45,47 @@ NG_Weightings = {
     ["Paladin"] = {
         ["Holy"] = {
             ["ITEM_MOD_STAMINA_SHORT"] = 0.1,
-            ["ITEM_MOD_INTELLECT_SHORT"] = 100,
-            ["ITEM_MOD_CRIT_RATING_SHORT"] = 46,
-            ["ITEM_MOD_HASTE_SHORT"] = 35,
-            ["ITEM_MOD_SPELL_POWER_SHORT"] = 58,
-            ["ITEM_MOD_MANA_REGEN_SHORT"] = 88,
-            ["EMPTY_SOCKET_RED"] = 4,
-            ["EMPTY_SOCKET_BLUE"] = 3.5,
-            ["EMPTY_SOCKET_YELLOW"] = 6.4,
+            ["ITEM_MOD_INTELLECT_SHORT"] = 10,
+            ["ITEM_MOD_CRIT_RATING_SHORT"] = 4.6,
+            ["ITEM_MOD_HASTE_RATING_SHORT"] = 3.5,
+            ["ITEM_MOD_SPELL_POWER_SHORT"] = 5.8,
+            ["ITEM_MOD_MANA_REGEN_SHORT"] = 8.8,
+            ["EMPTY_SOCKET_RED"] = 200,
+            ["EMPTY_SOCKET_BLUE"] = 200,
+            ["EMPTY_SOCKET_YELLOW"] = 200,
             ["EMPTY_SOCKET_META"] = 0
         },
         ["Protection"] = {
-            ["ITEM_MOD_STRENGTH_SHORT"] = 16,
-            ["ITEM_MOD_AGILITY_SHORT"] = 60,
-            ["ITEM_MOD_STAMINA_SHORT"] = 100,
-            ["ITEM_MOD_HIT_RATING_SHORT"] = 80,
-            ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 59,
-            ["RESISTANCE0_NAME"] = 8,
-            ["ITEM_MOD_DEFENSE_SKILL_SHORT"] = 45,
-            ["ITEM_MOD_DODGE_RATING_SHORT"] = 55,
-            ["ITEM_MOD_PARRY_RATING_SHORT"] = 30,
-            ["EMPTY_SOCKET_RED"] = 4.4,
-            ["EMPTY_SOCKET_BLUE"] = 4,
-            ["EMPTY_SOCKET_YELLOW"] = 6.2,
+            ["ITEM_MOD_STRENGTH_SHORT"] = 1.6,
+            ["ITEM_MOD_AGILITY_SHORT"] = 6,
+            ["ITEM_MOD_STAMINA_SHORT"] = 10,
+            ["ITEM_MOD_HIT_RATING_SHORT"] = 8,
+            ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 5.9,
+            ["RESISTANCE0_NAME"] = 0.8,
+            ["ITEM_MOD_DEFENSE_SKILL_SHORT"] = 7,
+            ["ITEM_MOD_DODGE_RATING_SHORT"] = 5.5,
+            ["ITEM_MOD_PARRY_RATING_SHORT"] = 3,
+            ["ITEM_MOD_BLOCK_VALUE_SHORT"] = 6,
+            ["ITEM_MOD_BLOCK_RATING_SHORT"] = 7,
+            ["EMPTY_SOCKET_RED"] = 210,
+            ["EMPTY_SOCKET_BLUE"] = 170,
+            ["EMPTY_SOCKET_YELLOW"] = 300,
             ["EMPTY_SOCKET_META"] = 0
         },
         ["Retribution"] = {
-            ["ITEM_MOD_STRENGTH_SHORT"] = 80,
-            ["ITEM_MOD_AGILITY_SHORT"] = 32,
+            ["ITEM_MOD_STRENGTH_SHORT"] = 8,
+            ["ITEM_MOD_AGILITY_SHORT"] = 3.2,
             ["ITEM_MOD_STAMINA_SHORT"] = 0.1,
-            ["ITEM_MOD_HIT_RATING_SHORT"] = 100,
-            ["ITEM_MOD_CRIT_RATING_SHORT"] = 40,
-            ["Haste"] = 30,
-            ["ITEM_MOD_ATTACK_POWER_SHORT"] = 34,
-            ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 66,
-            ["ITEM_MOD_ARMOR_PENETRATION_RATING_SHORT"] = 22,
-            ["ITEM_MOD_SPELL_POWER_SHORT"] = 9,
-            ["EMPTY_SOCKET_RED"] = 1.6,
-            ["EMPTY_SOCKET_BLUE"] = 1.8,
-            ["EMPTY_SOCKET_YELLOW"] = 0.9,
+            ["ITEM_MOD_HIT_RATING_SHORT"] = 10,
+            ["ITEM_MOD_CRIT_RATING_SHORT"] = 4,
+            ["ITEM_MOD_HASTE_RATING_SHORT"] = 3,
+            ["ITEM_MOD_ATTACK_POWER_SHORT"] = 3.4,
+            ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 6.6,
+            ["ITEM_MOD_ARMOR_PENETRATION_RATING_SHORT"] = 2.2,
+            ["ITEM_MOD_SPELL_POWER_SHORT"] = 0.9,
+            ["EMPTY_SOCKET_RED"] = 160,
+            ["EMPTY_SOCKET_BLUE"] = 160,
+            ["EMPTY_SOCKET_YELLOW"] = 120,
             ["EMPTY_SOCKET_META"] = 0
         }
     },
@@ -96,6 +98,48 @@ NG_Weightings = {
     ["Death Knight"] = {
     },
     ["Shaman"] = {
+        ["Restoration"] = {
+            ["ITEM_MOD_STAMINA_SHORT"] = 0.1,
+            ["ITEM_MOD_INTELLECT_SHORT"] = 3.5,
+            ["ITEM_MOD_SPIRIT_SHORT"] = 1,
+            ["ITEM_MOD_CRIT_RATING_SHORT"] = 6.2,
+            ["ITEM_MOD_HASTE_RATING_SHORT"] = 8.5,
+            ["ITEM_MOD_SPELL_POWER_SHORT"] = 10,
+            ["ITEM_MOD_POWER_REGEN0_SHORT"] = 7.7,
+            ["EMPTY_SOCKET_RED"] = 205,
+            ["EMPTY_SOCKET_BLUE"] = 170,
+            ["EMPTY_SOCKET_YELLOW"] = 123.5,
+            ["EMPTY_SOCKET_META"] = 0
+        },
+        ["Elemental"] = {
+            ["ITEM_MOD_INTELLECT_SHORT"] = 8,
+            ["ITEM_MOD_STAMINA_SHORT"] = 0.1,
+            ["ITEM_MOD_HIT_RATING_SHORT"] = 10,
+            ["ITEM_MOD_CRIT_RATING_SHORT"] = 4,
+            ["ITEM_MOD_HASTE_RATING_SHORT"] = 5.6,
+            ["ITEM_MOD_SPELL_POWER_SHORT"] = 6,
+            ["EMPTY_SOCKET_RED"] = 138,
+            ["EMPTY_SOCKET_BLUE"] = 73.5,
+            ["EMPTY_SOCKET_YELLOW"] = 128,
+            ["EMPTY_SOCKET_META"] = 0
+        },
+        ["Enhancement"] = {
+            ["ITEM_MOD_STRENGTH_SHORT"] = 3.5,
+            ["ITEM_MOD_AGILITY_SHORT"] = 5.5,
+            ["ITEM_MOD_STAMINA_SHORT"] = 0.1,
+            ["ITEM_MOD_INTELLECT_SHORT"] = 5.5,
+            ["ITEM_MOD_HIT_RATING_SHORT"] = 10,
+            ["ITEM_MOD_CRIT_RATING_SHORT"] = 4.2,
+            ["ITEM_MOD_HASTE_RATING_SHORT"] = 5.5,
+            ["ITEM_MOD_ATTACK_POWER_SHORT"] = 3.2,
+            ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 8.4,
+            ["ITEM_MOD_ARMOR_PENETRATION_RATING_SHORT"] = 2.6,
+            ["ITEM_MOD_SPELL_POWER_SHORT"] = 2.9,
+            ["EMPTY_SOCKET_RED"] = 110,
+            ["EMPTY_SOCKET_BLUE"] = 110,
+            ["EMPTY_SOCKET_YELLOW"] = 110,
+            ["EMPTY_SOCKET_META"] = 0
+        }
     },
     ["Mage"] = {
     },
@@ -110,6 +154,9 @@ NG_Weightings = {
 -- RESISTANCE0_NAME -- Armour
 -- RESISTANCE1_NAME
 -- RESISTANCE2_NAME -- Fire Resistance
+-- RESISTANCE3_NAME
+-- RESISTANCE4_NAME
+-- RESISTANCE5_NAME -- Shadow Resistance
 
 
 -- Main stats
@@ -124,12 +171,14 @@ NG_Weightings = {
 -- ITEM_MOD_ATTACK_POWER_SHORT
 -- ITEM_MOD_SPELL_POWER_SHORT
 -- ITEM_MOD_DEFENSE_SKILL_SHORT
+-- ITEM_MOD_DEFENSE_SKILL_RATING_SHORT
 -- ITEM_MOD_BLOCK_VALUE_SHORT
+-- ITEM_MOD_HASTE_RATING_SHORT
 -- ITEM_MOD_EXPERTISE_RATING_SHORT
 -- ITEM_MOD_DODGE_RATING_SHORT
 -- ITEM_MOD_PARRY_RATING_SHORT
--- Mana regen??
--- Haste??
+-- ITEM_MOD_BLOCK_RATING_SHORT
+-- ITEM_MOD_POWER_REGEN0_SHORT
 
 
 -- Other stats on items, not currently used.

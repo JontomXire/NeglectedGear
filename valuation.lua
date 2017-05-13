@@ -72,7 +72,7 @@ function NeglectedGear:ValueItem(item, target)
         end
     end
 
-    return floor(score / 10.0);
+    return floor(score);
 end
 
 
