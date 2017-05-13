@@ -11,31 +11,6 @@ NeglectedGear.minor_version = 2;
 NeglectedGear.event_queue = {};
 
 
-function NeglectedGear:ValueItem(item, target)
-    local score = 0;
-
-    local class = UnitClass(target);
-    if nil == class
-    then
-        NeglectedGear:DebugMessage(3, "Target '" .. target .. "' is not recognised.");
-    else
-        local weightings = NG_Weightings[class];
-        local stats = GetItemStats(item);
-        for stat, value in pairs(stats)
-        do
-            if weightings[stat]
-            then
-                score = score + (value * weightings[stat]);
-            else
---                NeglectedGear:DebugMessage(1, "Ignoring " .. stat);
-            end
-        end
-    end
-
-    return score;
-end
-
-
 function NeglectedGear:TestItem(item)
     if strsub(item, 1, 5) ~= "item:"
     then
