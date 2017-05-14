@@ -32,6 +32,62 @@ NG_SlotID = {
 }
 
 
+NG_HitType = {
+    ["Warrior"] = {
+        ["Arms"] = CR_HIT_MELEE,
+        ["Fury"] = CR_HIT_MELEE,
+        ["Protection"] = CR_HIT_MELEE
+    },
+    ["Paladin"] = {
+        ["Holy"] = CR_HIT_SPELL,
+        ["Protection"] = CR_HIT_MELEE,
+        ["Retribution"] = CR_HIT_MELEE
+    },
+    ["Hunter"] = {
+        ["Beast Mastery"] = CR_HIT_RANGED,
+        ["Marksmanship"] = CR_HIT_RANGED,
+        ["Survival"] = CR_HIT_RANGED
+    },
+    ["Rogue"] = {
+        ["Assassination"] = CR_HIT_MELEE,
+        ["Combat"] = CR_HIT_MELEE,
+        ["Subtlety"] = CR_HIT_MELEE
+    },
+    ["Priest"] = {
+        ["Discipline"] = CR_HIT_SPELL,
+        ["Holy"] = CR_HIT_SPELL,
+        ["Shadow"] = CR_HIT_SPELL
+    },
+    ["Death Knight"] = {
+        ["Blood_DPS"] = CR_HIT_MELEE,
+        ["Blood_TANK"] = CR_HIT_MELEE,
+        ["Frost"] = CR_HIT_MELEE,
+        ["Unholy"] = CR_HIT_MELEE
+    },
+    ["Shaman"] = {
+        ["Elemental"] = CR_HIT_SPELL,
+        ["Enhancement"] = CR_HIT_MELEE,
+        ["Restoration"] = CR_HIT_SPELL
+    },
+    ["Mage"] = {
+        ["Arcane"] = CR_HIT_SPELL,
+        ["Fire"] = CR_HIT_SPELL,
+        ["Frost"] = CR_HIT_SPELL
+    },
+    ["Warlock"] = {
+        ["Affliction"] = CR_HIT_SPELL,
+        ["Demonology"] = CR_HIT_SPELL,
+        ["Destruction"] = CR_HIT_SPELL
+    },
+    ["Druid"] = {
+        ["Balance"] = CR_HIT_SPELL,
+        ["Feral_TANK"] = CR_HIT_MELEE,
+        ["Feral_DPS"] = CR_HIT_MELEE,
+        ["Restoration"] = CR_HIT_SPELL
+    }
+}
+
+
 -- See https://docs.google.com/spreadsheets/d/15YHsDfAZal5jUzaUE6rG8dMGsbqkeuTiY7MQbg2Awf8/edit#gid=1379405445
 NG_Weightings = {
     ["Warrior"] = {
@@ -107,9 +163,12 @@ NG_Weightings = {
             ["ITEM_MOD_AGILITY_SHORT"] = 6,
             ["ITEM_MOD_STAMINA_SHORT"] = 10,
             ["ITEM_MOD_HIT_RATING_SHORT"] = 8,
+            ["ITEM_MOD_HIT_RATING_SHORT_CAP"] = 263,
             ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 5.9,
+            ["ITEM_MOD_EXPERTISE_RATING_SHORT_CAP"] = 26,
             ["RESISTANCE0_NAME"] = 0.8,
             ["ITEM_MOD_DEFENSE_SKILL_SHORT"] = 7,
+            ["ITEM_MOD_DEFENSE_SKILL_SHORT_CAP"] = 664,
             ["ITEM_MOD_DODGE_RATING_SHORT"] = 5.5,
             ["ITEM_MOD_PARRY_RATING_SHORT"] = 3,
             ["ITEM_MOD_BLOCK_VALUE_SHORT"] = 6,

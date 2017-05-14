@@ -16,25 +16,11 @@ function NeglectedGear:TestItem(item)
     then
         item = "item:" .. tostring(tonumber(item));
     end
-    local name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
-    if nil == name
+
+    local name, display_str = NeglectedGear:GetItemString(item, "player");
+    if nil ~= name
     then
-        NeglectedGear:ChatMessage("Error: " .. item .. " is not a valid item link.")
-    else
-        local old_item = GetInventoryItemLink("player", NG_SlotID[loc]);
-        local old_name = GetItemInfo(old_item);
-
-        NeglectedGear:ChatMessage("Comparing " .. name .. " to " .. old_name .. ".");
-
-        local value = NeglectedGear:ValueItem(item, "player");
-        local old_value = NeglectedGear:ValueItem(old_item, "player");
-
-        if value >= old_value
-        then
-            NeglectedGear:ChatMessage(name .. ": " .. tostring(value) .. "(+" .. tostring(value - old_value) .. ")");
-        else
-            NeglectedGear:ChatMessage(name .. ": " .. tostring(value) .. "(-" .. tostring(old_value - value) .. ")");
-        end
+        NeglectedGear:ChatMessage(name .. ": " .. display_str);
     end
 end
 
@@ -49,6 +35,16 @@ function SlashCmdList.NG(msg, editbox)
     elseif cmd:lower() == "warn"
     then
         NeglectedGear:ShowWarning(rest);
+
+    elseif cmd:lower() == "findapi"
+    then
+        for key, _ in pairs(_G)
+        do
+            if string.find(key, rest)
+            then
+                NeglectedGear:DebugMessage(1, key);
+            end
+        end
 
     else
         NeglectedGear:DebugMessage(3, "Invalid command \""..(cmd or "NIL").."\".");

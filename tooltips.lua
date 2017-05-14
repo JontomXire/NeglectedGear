@@ -33,30 +33,13 @@ function NeglectedGear:HookItem(name, link, tooltip)
         return;
     end
 
-    _, _, _, _, _, _, _, _, loc = GetItemInfo(link);
-
-    if nil == name
+    local _, display_str = NeglectedGear:GetItemString(link, "player");
+    if nil == display_str
     then
         return;
     end
 
-    local value = NeglectedGear:ValueItem(link, "player");
-
-    local current_item = GetInventoryItemLink("player", NG_SlotID[loc]);
-    if nil == current_item
-    then
-        NeglectedGear:DebugMessage(1, "Location: " .. loc .. ", Slot: " .. tostring(NG_SlotID[loc]) .. " is empty.");
-        tooltip:AddLine("NG Value: " .. tostring(value), 0.5, 0.5, 1.0);
-    else
-        local old_value = NeglectedGear:ValueItem(current_item, "player");
-
-        if value >= old_value
-        then
-            tooltip:AddLine("NG Value: " .. tostring(value) .. "(+" .. tostring(value - old_value) .. ")", 0.5, 0.5, 1.0);
-        else
-            tooltip:AddLine("NG Value: " .. tostring(value) .. "(-" .. tostring(old_value - value) .. ")", 0.5, 0.5, 1.0);
-        end
-    end
+    tooltip:AddLine("NG Value: " .. display_str, 0.5, 0.5, 1.0);
 end
 
 
