@@ -69,14 +69,14 @@ function NeglectedGear:GetStatValue(class, spec, stat)
 
     if stat == "ITEM_MOD_HIT_RATING_SHORT"
     then
-        value = GetCombatRatingBonus(NG_HitType[class][spec]);
+        value = GetCombatRating(NG_HitType[class][spec]);
 
     elseif stat == "ITEM_MOD_EXPERTISE_RATING_SHORT"
     then
         value = GetExpertise();
     elseif stat == "ITEM_MOD_DEFENSE_SKILL_SHORT"
     then
-        value = GetCombatRatingBonus(CR_DEFENSE_SKILL);
+        value = GetCombatRating(CR_DEFENSE_SKILL);
     end
 
     return value;
