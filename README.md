@@ -22,19 +22,18 @@ Syntax: `/ng test <item ID>`
 This is a test/debug command that will give the value of an item without needing to have the item link available.
 
 ## TODO:
-* Import stat weightings.
-* When inspecting someone, make the scores relevant for their class and spec (if possible).
+* Implement stat caps.
+* Modify individual gear score to account for existing gear.
 * Implement item scoring across raid.
 * Implement dialogue to list item scores across raid, filtering out players who cannot/should not use item.
-* Implement full character gear scoring.
-* Implement UI modification to display full character gear score
-* Modify individual gear score to account for existing gear.
-* Modify raid scoring and display.
 * Modify gear scoring to calculate actual and potential gemming:
   * Optimise across all sockets rather than evaluating item by item.
 * Modify gear scoring to calculate actual and potential enchants.
 
 ## Optional extra features:
+* Implement full character gear scoring.
+* Implement UI modification to display full character gear score
+* When inspecting someone, make the scores relevant for their class and spec (if possible).
 * Raid/party check to ensure
   * Everyone has the addon and it is up to date.
   * No-one has PvP gear.
