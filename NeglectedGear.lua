@@ -46,6 +46,19 @@ function SlashCmdList.NG(msg, editbox)
             end
         end
 
+    elseif cmd:lower() == "show"
+    then
+        NeglectedGear:Initialise("Hello world!");
+
+    elseif cmd:lower() == "add"
+    then
+        local name, data = rest:match("^(%S*)%s*(.-)$");
+        NeglectedGear:AddRow(name, data);
+
+    elseif cmd:lower() == "hide"
+    then
+        NeglectedGear.frame:Hide();
+
     else
         NeglectedGear:DebugMessage(3, "Invalid command \""..(cmd or "NIL").."\".");
     end
@@ -63,6 +76,8 @@ function NeglectedGear_OnLoad(self)
     ShoppingTooltip1:HookScript("OnTooltipSetItem", NeglectedGear_HookCompareItem)
     ShoppingTooltip2:HookScript("OnTooltipSetItem", NeglectedGear_HookCompareItem2)
     ItemRefTooltip:HookScript("OnTooltipSetItem", NeglectedGear_HookRefItem)
+
+    NeglectedGear:CreateFrame();
 
     -- Set up CLI.
     _G["SLASH_NG1"] = "/ng";

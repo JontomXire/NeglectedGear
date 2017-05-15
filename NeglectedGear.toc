@@ -16,6 +16,7 @@ data.lua
 output.lua
 settings.lua
 tooltips.lua
+ui.lua
 valuation.lua
 
 NeglectedGear.xml
