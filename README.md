@@ -22,18 +22,19 @@ Syntax: `/ng test <item ID>`
 This is a test/debug command that will give the value of an item without needing to have the item link available.
 
 ## TODO:
-* Add stat cap data to weightings for all specs.
+* Modify dialogue to display: score delta, current item, username.
+* Implement item scoring across raid.
+* In dialogue for raid, filter out players who cannot/should not use item.
+* Sort entries in raid dialogue by upgrade value.
 * For rings and trinkets, have two comparison values.
   * Make valuation function return two parameters (value and difference) and calling function build string.
-  * Detect ring an trinket socket by location value and run comparison twice. Can we avoid scoring the item twice? No. It will have two scores if it crosses a hit cap and the comparison objects have different amounts of the relevant stat. How do we display that neatly? Maybe just display best value and which slot it is compared to.
-* Modify individual gear score to account for existing gear.
-* Implement item scoring across raid.
-* Implement dialogue to list item scores across raid, filtering out players who cannot/should not use item.
+  * Detect ring and trinket socket by location value and run comparison twice. Can we avoid scoring the item twice? No. It will have two scores if it crosses a hit cap and the comparison objects have different amounts of the relevant stat. How do we display that neatly? Maybe just display best value and which slot it is compared to.
 * Modify gear scoring to calculate actual and potential gemming:
   * Optimise across all sockets rather than evaluating item by item.
 * Modify gear scoring to calculate actual and potential enchants.
 
 ## Optional extra features:
+* Modify dialogue to display stat deltas.
 * Implement full character gear scoring.
 * Implement UI modification to display full character gear score
 * When inspecting someone, make the scores relevant for their class and spec (if possible).
