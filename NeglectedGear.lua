@@ -17,11 +17,10 @@ function NeglectedGear:TestItem(item)
         item = "item:" .. tostring(tonumber(item));
     end
 
-    local name, display_str = NeglectedGear:GetItemString(item, "player");
-    if nil ~= name
-    then
-        NeglectedGear:ChatMessage(name .. ": " .. display_str);
-    end
+    local name, old_item_1, old_name_1, old_item_2, old_name_2 = NeglectedGear:GetCompareItems(item, "player");
+
+    NeglectedGear:Initialise(name);
+    SendAddonMessage("NG", item, "RAID");
 end
 
 

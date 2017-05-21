@@ -26,9 +26,6 @@ This is a test/debug command that will give the value of an item without needing
 * Implement item scoring across raid.
 * In dialogue for raid, filter out players who cannot/should not use item.
 * Sort entries in raid dialogue by upgrade value.
-* For rings and trinkets, have two comparison values.
-  * Make valuation function return two parameters (value and difference) and calling function build string.
-  * Detect ring and trinket socket by location value and run comparison twice. Can we avoid scoring the item twice? No. It will have two scores if it crosses a hit cap and the comparison objects have different amounts of the relevant stat. How do we display that neatly? Maybe just display best value and which slot it is compared to.
 * Modify gear scoring to calculate actual and potential gemming:
   * Optimise across all sockets rather than evaluating item by item.
 * Modify gear scoring to calculate actual and potential enchants.
