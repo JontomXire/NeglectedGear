@@ -99,6 +99,9 @@ function NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item)
             stat = cap:sub(1, (string.len(cap) - 4));
             local char_stat = NeglectedGear:GetStatValue(class, spec, stat);
             base_stats[stat] = char_stat - (item_stats[stat] or 0);
+            if stat == "ITEM_MOD_EXPERTISE_RATING_SHORT"
+            then
+            end
         end
     end
 

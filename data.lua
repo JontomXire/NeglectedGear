@@ -172,8 +172,10 @@ NG_Weightings = {
             ["ITEM_MOD_STAMINA_SHORT"] = 10,
             ["ITEM_MOD_HIT_RATING_SHORT"] = 8,
             ["ITEM_MOD_HIT_RATING_SHORT_CAP"] = 263,
+            -- Base expertise is 6. Glyph of Seal of Vengeance gives 10. We need 10 more. 82 expertise
+            -- may give that, 83 definitely does.
             ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 5.9,
-            ["ITEM_MOD_EXPERTISE_RATING_SHORT_CAP"] = 26,
+            ["ITEM_MOD_EXPERTISE_RATING_SHORT_CAP"] = 83,
             ["RESISTANCE0_NAME"] = 0.8,
             ["ITEM_MOD_DEFENSE_SKILL_SHORT"] = 7,
             ["ITEM_MOD_DEFENSE_SKILL_SHORT_CAP"] = 664,
