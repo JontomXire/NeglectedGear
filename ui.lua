@@ -1,13 +1,25 @@
 -- Neglected Gear Copyright 2017 JontomXire@hushmail.com
 
 
-local NeglectedGear = _G.NeglectedGear
+local NeglectedGear = _G.NeglectedGear;
 
+
+function NeglectedGear.OnEnter(icon)
+    local item = icon:GetAttribute('ng_item');
+
+    GameTooltip_SetDefaultAnchor(GameTooltip, icon);
+    GameTooltip:SetHyperlink(item);
+    GameTooltip:Show();
+end
+
+function NeglectedGear.OnLeave(icon)
+    GameTooltip:Hide();
+end
 
 function NeglectedGear:CreateFrame()
     NeglectedGear.frame = CreateFrame("Frame", nil, UIParent);
     NeglectedGear.frame:ClearAllPoints();
-    NeglectedGear.frame:SetPoint("CENTER", UIParent);
+    NeglectedGear.frame:SetPoint("CENTER", UIParent, 0, 200);
     NeglectedGear.frame:SetWidth(320);
     NeglectedGear.frame:SetBackdrop({
         bgFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 32,
@@ -50,11 +62,11 @@ end
 
 
 function NeglectedGear:SetSize()
-    local height = 72;
+    local height = 100;
 
     if 0 == NeglectedGear.frame.rowcount
     then
-        height = height + 12;
+        height = height;
     else
         height = height + (NeglectedGear.frame.rowcount * 16);
     end
@@ -67,29 +79,162 @@ function NeglectedGear:Initialise(title)
     NeglectedGear.frame.titletext:SetText(title);
     NeglectedGear.frame.titleframe:SetWidth(NeglectedGear.frame.titletext:GetWidth() + 24);
     NeglectedGear.frame.titleframe:SetHeight(NeglectedGear.frame.titletext:GetHeight() + 12);
-    NeglectedGear.frame.rowname = {};
-    NeglectedGear.frame.rowdata = {};
+
+    if NeglectedGear.frame.rows == nil
+    then
+        NeglectedGear.frame.rows = {};
+    end
+
+    if NeglectedGear.frame.rowcount == nil
+    then
+        NeglectedGear.frame.rowcount = 0;
+    end
+
+    if 0 < NeglectedGear.frame.rowcount
+    then
+        for i = 1, NeglectedGear.frame.rowcount
+        do
+            local row = NeglectedGear.frame.rows[i];
+
+            row['name']:Hide();
+            row['icon_1']:Hide();
+            row['icon_frame_1']:Hide();
+            row['diff_1']:Hide();
+            if row['icon_2']
+            then
+                row['icon_2']:Hide();
+            end
+            if row['icon_frame_2']
+            then
+                row['icon_frame_2']:Hide();
+            end
+            if row['diff_2']
+            then
+                row['diff_2']:Hide();
+            end
+        end
+    end
+
     NeglectedGear.frame.rowcount = 0;
     NeglectedGear:SetSize();
     NeglectedGear.frame:Show();
 end
 
 
-function NeglectedGear:AddRow(name, data)
-    local name_text = NeglectedGear.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal");
-    name_text:SetTextColor(0.75, 0.75, 1.0, 1.0);
-    name_text:SetText(name);
-
-    local data_text = NeglectedGear.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal");
-    data_text:SetTextColor(0.75, 0.75, 1.0, 1.0);
-    data_text:SetText(data);
-
-    name_text:SetPoint("TOPLEFT", NeglectedGear.frame, "TOPLEFT", 12, ((NeglectedGear.frame.rowcount * -16) - 36));
-    data_text:SetPoint("TOPLEFT", NeglectedGear.frame, "TOPLEFT", 120, ((NeglectedGear.frame.rowcount * -16) - 36));
+function NeglectedGear:AddRow(name, item_1, diff_1, item_2, diff_2)
+    local row = {};
 
     NeglectedGear.frame.rowcount = NeglectedGear.frame.rowcount + 1;
-    NeglectedGear.frame.rowname[NeglectedGear.frame.rowcount] = name_text;
-    NeglectedGear.frame.rowdata[NeglectedGear.frame.rowcount] = data_text;
+    if NeglectedGear.frame.rows[NeglectedGear.frame.rowcount]
+    then
+        row = NeglectedGear.frame.rows[NeglectedGear.frame.rowcount];
+    end
+
+    local name_text = row['name'];
+    if name_text == nil
+    then
+        name_text = NeglectedGear.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal");
+        name_text:SetTextColor(0.75, 0.75, 1.0, 1.0);
+        name_text:SetPoint("TOPLEFT", NeglectedGear.frame, "TOPLEFT", 12, ((NeglectedGear.frame.rowcount * -16) - 36));
+    else
+        name_text:Show();
+    end
+    name_text:SetText(name);
+
+    row['name'] = name_text;
+
+    local icon_frame = row['icon_frame_1'];
+    if icon_frame == nil
+    then
+        icon_frame = CreateFrame("Frame", nil, NeglectedGear.frame);
+        icon_frame:SetWidth(16);
+        icon_frame:SetHeight(16);
+        icon_frame:SetScript("OnEnter", NeglectedGear.OnEnter);
+        icon_frame:SetScript("OnLeave", NeglectedGear.OnLeave);
+        icon_frame:SetPoint("TOPLEFT", NeglectedGear.frame, "TOPLEFT", 120, ((NeglectedGear.frame.rowcount * -16) - 36));
+        icon_frame:EnableMouse(true);
+    else
+        icon_frame:Show();
+    end
+    icon_frame:SetAttribute('ng_item', item_1);
+
+    row['icon_frame_1'] = icon_frame;
+
+    local icon = row['icon_1'];
+    if icon == nil
+    then
+        icon = icon_frame:CreateTexture(nil, "OVERLAY");
+        icon:SetPoint("TOPLEFT", icon_frame, "TOPLEFT", 0, 0);
+        icon:SetWidth(16);
+        icon:SetHeight(16);
+    else
+        icon:Show();
+    end
+    icon:SetTexture(GetItemIcon(item_1));
+
+    row['icon_1'] = icon;
+
+    local diff_text = row['diff_1'];
+    if diff_text == nil
+    then
+        diff_text = NeglectedGear.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal");
+        diff_text:SetTextColor(0.75, 0.75, 1.0, 1.0);
+        diff_text:SetPoint("TOPLEFT", NeglectedGear.frame, "TOPLEFT", 140, ((NeglectedGear.frame.rowcount * -16) - 36));
+    else
+        diff_text:Show();
+    end
+    diff_text:SetText(tostring(diff_1));
+
+    row['diff_1'] = diff_text;
+
+    if item_2
+    then
+        icon_frame = row['icon_frame_2'];
+        if icon_frame == nil
+        then
+            icon_frame = CreateFrame("Frame", nil, NeglectedGear.frame);
+            icon_frame:SetWidth(16);
+            icon_frame:SetHeight(16);
+            icon_frame:SetScript("OnEnter", NeglectedGear.OnEnter);
+            icon_frame:SetScript("OnLeave", NeglectedGear.OnLeave);
+            icon_frame:SetPoint("TOPLEFT", NeglectedGear.frame, "TOPLEFT", 200, ((NeglectedGear.frame.rowcount * -16) - 36));
+            icon_frame:EnableMouse(true);
+        else
+            icon_frame:Show();
+        end
+        icon_frame:SetAttribute('ng_item', item_2);
+
+        row['icon_frame_2'] = icon_frame;
+
+        icon = row['icon_2'];
+        if icon == nil
+        then
+            icon = icon_frame:CreateTexture(nil, "OVERLAY");
+            icon:SetPoint("TOPLEFT", icon_frame, "TOPLEFT", 0, 0);
+            icon:SetWidth(16);
+            icon:SetHeight(16);
+        else
+            icon:Show();
+        end
+        icon:SetTexture(GetItemIcon(item_2));
+
+        row['icon_2'] = icon;
+
+        diff_text = row['diff_2'];
+        if diff_text == nil
+        then
+            diff_text = NeglectedGear.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal");
+            diff_text:SetTextColor(0.75, 0.75, 1.0, 1.0);
+            diff_text:SetPoint("TOPLEFT", NeglectedGear.frame, "TOPLEFT", 220, ((NeglectedGear.frame.rowcount * -16) - 36));
+        else
+            diff_text:Show();
+        end
+        diff_text:SetText(tostring(diff_2));
+
+        row['diff_2'] = diff_text;
+    end
+
+    NeglectedGear.frame.rows[NeglectedGear.frame.rowcount] = row;
 
     NeglectedGear:SetSize();
 end

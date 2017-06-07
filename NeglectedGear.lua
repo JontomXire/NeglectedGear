@@ -17,10 +17,15 @@ function NeglectedGear:TestItem(item)
         item = "item:" .. tostring(tonumber(item));
     end
 
-    local name, old_item_1, old_name_1, old_item_2, old_name_2 = NeglectedGear:GetCompareItems(item, "player");
+    local name, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(item, "player");
 
     NeglectedGear:Initialise(name);
-    SendAddonMessage("NG", item, "RAID");
+    if IsEquippableItem(arg2)
+    then
+        NeglectedGear:AddRow(GetUnitName('player'), old_item_1, diff_1, old_item_2, diff_2)
+    end
+
+    SendAddonMessage("NG_QUERY", item, "RAID");
 end
 
 
@@ -45,15 +50,6 @@ function SlashCmdList.NG(msg, editbox)
             end
         end
 
-    elseif cmd:lower() == "show"
-    then
-        NeglectedGear:Initialise("Hello world!");
-
-    elseif cmd:lower() == "add"
-    then
-        local name, data = rest:match("^(%S*)%s*(.-)$");
-        NeglectedGear:AddRow(name, data);
-
     elseif cmd:lower() == "hide"
     then
         NeglectedGear.frame:Hide();
@@ -70,6 +66,7 @@ function NeglectedGear_OnLoad(self)
     self:RegisterEvent("PLAYER_LOGIN");
     self:RegisterEvent("PLAYER_REGEN_ENABLED");
     self:RegisterEvent("PLAYER_REGEN_DISABLED");
+    self:RegisterEvent("CHAT_MSG_ADDON");
 
     GameTooltip:HookScript("OnTooltipSetItem", NeglectedGear_HookSetItem)
     ShoppingTooltip1:HookScript("OnTooltipSetItem", NeglectedGear_HookCompareItem)
@@ -103,7 +100,35 @@ function NeglectedGear_OnEvent(self, event, ...)
     then
         NeglectedGear.in_combat = true;
 
-    elseif(event == "HIDE_WARNING")
+    elseif event == "CHAT_MSG_ADDON"
+    then
+        if arg1 == "NG_QUERY"
+        then
+            if arg4 ~= GetUnitName('player') and IsEquippableItem(arg2)
+            then
+                local name, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(arg2, "player");
+                if old_item_2
+                then
+                    SendAddonMessage("NG_REPLY", old_item_1 .. "@" .. tostring(diff_1) .. "@" .. old_item_2 .. "@" .. tostring(diff_2), "WHISPER", arg4);
+                else
+                    SendAddonMessage("NG_REPLY", old_item_1 .. "@" .. tostring(diff_1), "WHISPER", arg4);
+                end
+            end
+
+        elseif arg1 == "NG_REPLY"
+        then
+            local old_item_1, diff_1, rest = arg2:match("^([^@]*)@([^@]*)@*(.-)$");
+            local old_item_2 = nil;
+            local diff_2 = nil;
+
+            if rest
+            then
+                old_item_2, diff_2, rest = rest:match("^([^@]*)@([^@]*)@*(.-)$");
+            end
+            NeglectedGear:AddRow(GetUnitName(arg4), old_item_1, diff_1, old_item_2, diff_2)
+        end
+
+    elseif event == "HIDE_WARNING"
     then
         NeglectedGear:HideWarning();
 

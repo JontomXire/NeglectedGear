@@ -204,7 +204,7 @@ function NeglectedGear:GetItemString(item, target)
     then
         item_string = item_string .. ", "
         local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
-        local value = NeglectedGear:ValueItem(item, weightings, base_stats);
+        value = NeglectedGear:ValueItem(item, weightings, base_stats);
         local old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
         if value >= old_value
         then
@@ -215,6 +215,42 @@ function NeglectedGear:GetItemString(item, target)
     end
 
     return name, item_string;
+end
+
+
+function NeglectedGear:GetItemValues(item, target)
+    local name, old_item_1, old_name_1, old_item_2, old_name_2 = NeglectedGear:GetCompareItems(item, target);
+    local item_string = "";
+
+    local class, spec = NeglectedGear:GetClass(target);
+    if nil == class
+    then
+        return name, item_string;
+    end
+
+    local weightings = NeglectedGear:GetWeightings(class, spec);
+    local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_1);
+    local value = NeglectedGear:ValueItem(item, weightings, base_stats);
+    local value_diff_1 = value;
+    local value_diff_2 = nil;
+
+    if nil ~= old_item_1
+    then
+        local old_value = NeglectedGear:ValueItem(old_item_1, weightings, base_stats);
+        value_diff_1 = value - old_value;
+    end
+
+    if nil ~= old_item_2
+    then
+        item_string = item_string .. ", "
+        local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
+        value = NeglectedGear:ValueItem(item, weightings, base_stats);
+        local old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
+
+        value_diff_2 = value - old_value;
+    end
+
+    return name, old_item_1, value_diff_1, old_item_2, value_diff_2;
 end
 
 
