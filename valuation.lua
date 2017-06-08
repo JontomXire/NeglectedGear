@@ -140,7 +140,7 @@ end
 
 function NeglectedGear:GetCompareItems(item, target)
     local name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
-    if nil == name
+    if nil == name or nil == loc
     then
         NeglectedGear:ChatMessage("Error: " .. item .. " is not a valid item link.")
         return nil, nil, nil, nil, nil;
@@ -176,6 +176,11 @@ end
 function NeglectedGear:GetItemString(item, target)
     local name, old_item_1, old_name_1, old_item_2, old_name_2 = NeglectedGear:GetCompareItems(item, target);
     local item_string = "";
+
+    if nil == name
+    then
+        return "", "";
+    end
 
     local class, spec = NeglectedGear:GetClass(target);
     if nil == class
@@ -221,6 +226,11 @@ end
 function NeglectedGear:GetItemValues(item, target)
     local name, old_item_1, old_name_1, old_item_2, old_name_2 = NeglectedGear:GetCompareItems(item, target);
     local item_string = "";
+
+    if nil == name
+    then
+        return "", "";
+    end
 
     local class, spec = NeglectedGear:GetClass(target);
     if nil == class

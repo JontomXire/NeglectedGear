@@ -17,15 +17,21 @@ function NeglectedGear:TestItem(item)
         item = "item:" .. tostring(tonumber(item));
     end
 
-    local name, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(item, "player");
-
-    NeglectedGear:Initialise(name);
-    if IsEquippableItem(arg2)
+    local name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
+    if nil == name
     then
-        NeglectedGear:AddRow(GetUnitName('player'), old_item_1, diff_1, old_item_2, diff_2)
-    end
+        NeglectedGear:ChatMessage("Error (a): " .. item .. " is not a valid item link.")
+    else
+        NeglectedGear:Initialise(name);
+        if IsUsableItem(item)
+        then
+            local _, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(item, "player");
 
-    SendAddonMessage("NG_QUERY", item, "RAID");
+            NeglectedGear:AddRow(GetUnitName('player'), old_item_1, diff_1, old_item_2, diff_2)
+        end
+
+        SendAddonMessage("NG_QUERY", item, "RAID");
+    end
 end
 
 
@@ -35,6 +41,20 @@ function SlashCmdList.NG(msg, editbox)
     if cmd:lower() == "test"
     then
         NeglectedGear:TestItem(rest);
+
+    elseif cmd:lower() == "check"
+    then
+        if strsub(rest, 1, 5) ~= "item:"
+        then
+            rest = "item:" .. tostring(tonumber(rest));
+        end
+
+        if IsUsableItem(rest)
+        then
+            NeglectedGear:DebugMessage(3, "You can use that.");
+        else
+            NeglectedGear:DebugMessage(3, "You cannot use that.");
+        end
 
     elseif cmd:lower() == "warn"
     then
@@ -104,7 +124,7 @@ function NeglectedGear_OnEvent(self, event, ...)
     then
         if arg1 == "NG_QUERY"
         then
-            if arg4 ~= GetUnitName('player') and IsEquippableItem(arg2)
+            if arg4 ~= GetUnitName('player') and IsUsableItem(arg2)
             then
                 local name, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(arg2, "player");
                 if old_item_2
