@@ -19,19 +19,16 @@ This is command will generate a warning message on your screen. It can be useful
 
 Syntax: `/ng test <item ID>`
 
-This is a test/debug command that will give the value of an item without needing to have the item link available.
+This is a test/debug command that will show the UI for a specific item by numerical ID.
 
 ## TODO:
-* Modify dialogue to display: score delta, current item, username.
-* Implement item scoring across raid.
-* In dialogue for raid, filter out players who cannot/should not use item.
-* Sort entries in raid dialogue by upgrade value.
 * Modify gear scoring to calculate actual and potential gemming:
   * Optimise across all sockets rather than evaluating item by item.
 * Modify gear scoring to calculate actual and potential enchants.
 
 ## Optional extra features:
-* Modify dialogue to display stat deltas.
+* In dialogue for raid, filter out players who cannot/should not use item.
+    Note that the API for this seems to be broken.
 * Implement full character gear scoring.
 * Implement UI modification to display full character gear score
 * When inspecting someone, make the scores relevant for their class and spec (if possible).
@@ -41,5 +38,6 @@ This is a test/debug command that will give the value of an item without needing
   * Everyone has full enchants.
   * Everyone has full gemming.
 * Suggest gemming and enchants.
+* Sort entries in raid dialogue by upgrade value.
 * Allow off-spec scoring - very hard unless player equips offspec gear.
 

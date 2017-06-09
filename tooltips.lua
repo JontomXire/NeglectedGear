@@ -28,7 +28,7 @@ function NeglectedGear:HookItem(name, link, tooltip)
         return;
     end
 
-    if not IsUsableItem(link)
+    if not IsEquippableItem(link)
     then
         return;
     end

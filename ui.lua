@@ -12,9 +12,19 @@ function NeglectedGear.OnEnter(icon)
     GameTooltip:Show();
 end
 
+
 function NeglectedGear.OnLeave(icon)
     GameTooltip:Hide();
 end
+
+
+function NeglectedGear.OnClick(icon)
+
+
+
+
+end
+
 
 function NeglectedGear:CreateFrame()
     NeglectedGear.frame = CreateFrame("Frame", nil, UIParent);
@@ -76,7 +86,12 @@ end
 
 
 function NeglectedGear:Initialise(title)
-    NeglectedGear.frame.titletext:SetText(title);
+    if nil == title
+    then
+        NeglectedGear.frame.titletext:SetText("???");
+    else
+        NeglectedGear.frame.titletext:SetText(title);
+    end
     NeglectedGear.frame.titleframe:SetWidth(NeglectedGear.frame.titletext:GetWidth() + 24);
     NeglectedGear.frame.titleframe:SetHeight(NeglectedGear.frame.titletext:GetHeight() + 12);
 

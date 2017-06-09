@@ -14,7 +14,7 @@ function NeglectedGear:GetClass(target)
 
     if target ~= "player"
     then
-        NeglectedGear:DebugMessage(1, "Target '" .. target .. "' is not supported.");
+        NeglectedGear:DebugMessage(2, "Target '" .. target .. "' is not supported.");
         return nil, nil;
     end
 
@@ -142,39 +142,27 @@ function NeglectedGear:GetCompareItems(item, target)
     local name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
     if nil == name or nil == loc
     then
-        NeglectedGear:ChatMessage("Error: " .. item .. " is not a valid item link.")
-        return nil, nil, nil, nil, nil;
+        NeglectedGear:DebugMessage(3, "Error: " .. item .. " is not a valid item link.")
+        return nil, nil, nil;
     end
 
-    local old_item_1 = GetInventoryItemLink(target, NG_SlotID[loc]);
+    local old_item_1 = GetInventoryItemLink(target, NG_SlotID[loc]) or "";
     local old_item_2 = nil;
 
     if (loc == "INVTYPE_FINGER")
     then
-        old_item_2 = GetInventoryItemLink(target, 12);
+        old_item_2 = GetInventoryItemLink(target, 12) or "";
     elseif (loc == "INVTYPE_TRINKET")
     then
-        old_item_2 = GetInventoryItemLink(target, 14);
+        old_item_2 = GetInventoryItemLink(target, 14) or "";
     end
 
-    local old_name_1 = nil;
-    local old_name_2 = nil;
-
-    if nil ~= old_item_1
-    then
-        old_name_1 = GetItemInfo(old_item_1);
-    end
-    if nil ~= old_item_2
-    then
-        old_name_2 = GetItemInfo(old_item_2);
-    end
-
-    return name, old_item_1, old_name_1, old_item_2, old_name_2;
+    return name, old_item_1, old_item_2;
 end
 
 
 function NeglectedGear:GetItemString(item, target)
-    local name, old_item_1, old_name_1, old_item_2, old_name_2 = NeglectedGear:GetCompareItems(item, target);
+    local name, old_item_1, old_item_2 = NeglectedGear:GetCompareItems(item, target);
     local item_string = "";
 
     if nil == name
@@ -194,8 +182,10 @@ function NeglectedGear:GetItemString(item, target)
 
     item_string = tostring(value);
 
-    if nil ~= old_item_1
+    if "" == old_item_1
     then
+        item_string = item_string .. " (NE)"
+    else
         local old_value = NeglectedGear:ValueItem(old_item_1, weightings, base_stats);
         if value >= old_value
         then
@@ -207,15 +197,20 @@ function NeglectedGear:GetItemString(item, target)
 
     if nil ~= old_item_2
     then
-        item_string = item_string .. ", "
-        local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
-        value = NeglectedGear:ValueItem(item, weightings, base_stats);
-        local old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
-        if value >= old_value
+        if "" ~= old_item_2
         then
-            item_string = item_string .. tostring(value) .. " (+" .. tostring(value - old_value) .. ")";
+            item_string = item_string .. " (NE)"
         else
-            item_string = item_string .. tostring(value) .. " (-" .. tostring(old_value - value) .. ")";
+            item_string = item_string .. ", "
+            local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
+            value = NeglectedGear:ValueItem(item, weightings, base_stats);
+            local old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
+            if value >= old_value
+            then
+                item_string = item_string .. tostring(value) .. " (+" .. tostring(value - old_value) .. ")";
+            else
+                item_string = item_string .. tostring(value) .. " (-" .. tostring(old_value - value) .. ")";
+            end
         end
     end
 
@@ -224,18 +219,18 @@ end
 
 
 function NeglectedGear:GetItemValues(item, target)
-    local name, old_item_1, old_name_1, old_item_2, old_name_2 = NeglectedGear:GetCompareItems(item, target);
+    local name, old_item_1, old_item_2 = NeglectedGear:GetCompareItems(item, target);
     local item_string = "";
 
     if nil == name
     then
-        return "", "";
+        return nil, nil, nil, nil, nil;
     end
 
     local class, spec = NeglectedGear:GetClass(target);
     if nil == class
     then
-        return name, item_string;
+        return nil, nil, nil, nil, nil;
     end
 
     local weightings = NeglectedGear:GetWeightings(class, spec);
@@ -246,16 +241,27 @@ function NeglectedGear:GetItemValues(item, target)
 
     if nil ~= old_item_1
     then
-        local old_value = NeglectedGear:ValueItem(old_item_1, weightings, base_stats);
+        local old_value = 0;
+        
+        if "" ~= old_item_1
+        then
+            NeglectedGear:ValueItem(old_item_1, weightings, base_stats);
+        end
         value_diff_1 = value - old_value;
     end
 
     if nil ~= old_item_2
     then
         item_string = item_string .. ", "
-        local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
-        value = NeglectedGear:ValueItem(item, weightings, base_stats);
-        local old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
+
+        local old_value = 0;
+        
+        if "" ~= old_item_2
+        then
+            local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
+            value = NeglectedGear:ValueItem(item, weightings, base_stats);
+            local old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
+        end
 
         value_diff_2 = value - old_value;
     end

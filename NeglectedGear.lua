@@ -5,8 +5,8 @@ NeglectedGear = {}
 local NeglectedGear = _G.NeglectedGear
 
 
-NeglectedGear.major_version = 0;
-NeglectedGear.minor_version = 2;
+NeglectedGear.major_version = 1;
+NeglectedGear.minor_version = 0;
 
 NeglectedGear.event_queue = {};
 
@@ -17,21 +17,26 @@ function NeglectedGear:TestItem(item)
         item = "item:" .. tostring(tonumber(item));
     end
 
+    if not IsEquippableItem(item)
+    then
+        NeglectedGear:ChatMessage("Error: " .. item .. " is not equippable.");
+        return;
+    end
+
     local name, _, _, _, _, _, _, _, loc = GetItemInfo(item);
     if nil == name
     then
-        NeglectedGear:ChatMessage("Error (a): " .. item .. " is not a valid item link.")
-    else
-        NeglectedGear:Initialise(name);
-        if IsUsableItem(item)
-        then
-            local _, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(item, "player");
-
-            NeglectedGear:AddRow(GetUnitName('player'), old_item_1, diff_1, old_item_2, diff_2)
-        end
-
-        SendAddonMessage("NG_QUERY", item, "RAID");
+        NeglectedGear:ChatMessage("Error: " .. item .. " is not a valid item link.");
+        return;
     end
+
+    NeglectedGear:Initialise(name);
+
+    local _, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(item, "player");
+
+    NeglectedGear:AddRow(GetUnitName('player'), old_item_1, diff_1, old_item_2, diff_2)
+
+    SendAddonMessage("NG_QUERY", item, "RAID");
 end
 
 
@@ -87,6 +92,8 @@ function NeglectedGear_OnLoad(self)
     self:RegisterEvent("PLAYER_REGEN_ENABLED");
     self:RegisterEvent("PLAYER_REGEN_DISABLED");
     self:RegisterEvent("CHAT_MSG_ADDON");
+    self:RegisterEvent("OPEN_MASTER_LOOT_LIST");
+    self:RegisterEvent("UPDATE_MASTER_LOOT_LIST");
 
     GameTooltip:HookScript("OnTooltipSetItem", NeglectedGear_HookSetItem)
     ShoppingTooltip1:HookScript("OnTooltipSetItem", NeglectedGear_HookCompareItem)
@@ -124,14 +131,17 @@ function NeglectedGear_OnEvent(self, event, ...)
     then
         if arg1 == "NG_QUERY"
         then
-            if arg4 ~= GetUnitName('player') and IsUsableItem(arg2)
+            if not UnitIsUnit(arg4, "player")
             then
                 local name, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(arg2, "player");
-                if old_item_2
+                if name
                 then
-                    SendAddonMessage("NG_REPLY", old_item_1 .. "@" .. tostring(diff_1) .. "@" .. old_item_2 .. "@" .. tostring(diff_2), "WHISPER", arg4);
-                else
-                    SendAddonMessage("NG_REPLY", old_item_1 .. "@" .. tostring(diff_1), "WHISPER", arg4);
+                    if old_item_2
+                    then
+                        SendAddonMessage("NG_REPLY", old_item_1 .. "@" .. tostring(diff_1) .. "@" .. old_item_2 .. "@" .. tostring(diff_2), "WHISPER", arg4);
+                    else
+                        SendAddonMessage("NG_REPLY", old_item_1 .. "@" .. tostring(diff_1), "WHISPER", arg4);
+                    end
                 end
             end
 
@@ -146,6 +156,36 @@ function NeglectedGear_OnEvent(self, event, ...)
                 old_item_2, diff_2, rest = rest:match("^([^@]*)@([^@]*)@*(.-)$");
             end
             NeglectedGear:AddRow(GetUnitName(arg4), old_item_1, diff_1, old_item_2, diff_2)
+        end
+
+    elseif (event == "OPEN_MASTER_LOOT_LIST") or (event == "UPDATE_MASTER_LOOT_LIST")
+    then
+        item = GetLootSlotLink(LootFrame.selectedSlot);
+        item = item:match("^.*(item:[0-9]*):.*");
+
+        if IsEquippableItem(item)
+        then
+            NeglectedGear:ChatMessage("Item is " .. item .. ".");
+
+            NeglectedGear:Initialise(LootFrame.selectedItemName);
+
+            local i = 1;
+            local candidate = GetMasterLootCandidate(i);
+
+            while nil ~= candidate
+            do
+                if UnitIsUnit(candidate, "player")
+                then
+                    local _, old_item_1, diff_1, old_item_2, diff_2 = NeglectedGear:GetItemValues(item, "player");
+
+                    NeglectedGear:AddRow(GetUnitName('player'), old_item_1, diff_1, old_item_2, diff_2)
+                else
+                    SendAddonMessage("NG_QUERY", item, "WHISPER", candidate);
+                end
+
+                i = i + 1;
+                candidate =  GetMasterLootCandidate(i);
+            end
         end
 
     elseif event == "HIDE_WARNING"
