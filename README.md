@@ -24,7 +24,6 @@ This is a test/debug command that will show the UI for a specific item by numeri
 ## Known issues:
 
 * Sometimes addon errors occur. Last seen when a mage was enchanting a shield in the trade window.
-* When evaluating rings, (NE) was reported for the second ring even though one was actually equipped.
 
 ## TODO:
 * Investigate and fix known bugs.

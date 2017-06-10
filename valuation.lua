@@ -197,7 +197,7 @@ function NeglectedGear:GetItemString(item, target)
 
     if nil ~= old_item_2
     then
-        if "" ~= old_item_2
+        if "" == old_item_2
         then
             item_string = item_string .. " (NE)"
         else
