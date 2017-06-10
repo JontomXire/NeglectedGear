@@ -5,9 +5,6 @@ NeglectedGear = {}
 local NeglectedGear = _G.NeglectedGear
 
 
-NeglectedGear.major_version = 1;
-NeglectedGear.minor_version = 0;
-
 NeglectedGear.event_queue = {};
 
 

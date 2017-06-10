@@ -18,6 +18,7 @@ settings.lua
 tooltips.lua
 ui.lua
 valuation.lua
+version.lua
 
 NeglectedGear.xml
 

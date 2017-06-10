@@ -12,3 +12,16 @@ do
     fi
 done
 
+
+MAJOR_VERSION=$(grep major_version version.lua | sed 's#.* = \([0-9]*\);#\1#')
+MINOR_VERSION=$(grep minor_version version.lua | sed 's#.* = \([0-9]*\);#\1#')
+
+MINOR_VERSION=$((${MINOR_VERSION} + 1))
+
+echo "Updating version to ${MAJOR_VERSION}.${MINOR_VERSION}"
+
+sed -i "s#.*minor_version.*#NeglectedGear.minor_version = ${MINOR_VERSION};#" version.lua
+
+git add version.lua
+
+
