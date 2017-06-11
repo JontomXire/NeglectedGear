@@ -23,10 +23,9 @@ This is a test/debug command that will show the UI for a specific item by numeri
 
 ## Known issues:
 
-* Sometimes addon errors occur. Last seen when a mage was enchanting a shield in the trade window.
+* None at this time.
 
 ## TODO:
-* Investigate and fix known bugs.
 * Differentiate between Feral DPS and Feral Tank.
 * Differentiate between Blood DPS and Blood Tank.
 * Make it so clicking on a player's name in the UI gives the item to that player.
