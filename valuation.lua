@@ -238,31 +238,24 @@ function NeglectedGear:GetItemValues(item, target)
     local value = NeglectedGear:ValueItem(item, weightings, base_stats);
     local value_diff_1 = value;
     local value_diff_2 = nil;
+    local old_value = 0;
 
-    if nil ~= old_item_1
+    if "" ~= old_item_1
     then
-        local old_value = 0;
-        
-        if "" ~= old_item_1
-        then
-            NeglectedGear:ValueItem(old_item_1, weightings, base_stats);
-        end
-        value_diff_1 = value - old_value;
+        old_value = NeglectedGear:ValueItem(old_item_1, weightings, base_stats);
     end
+    value_diff_1 = value - old_value;
 
     if nil ~= old_item_2
     then
-        item_string = item_string .. ", "
+        base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
+        old_value = 0;
+        value = NeglectedGear:ValueItem(item, weightings, base_stats);
 
-        local old_value = 0;
-        
         if "" ~= old_item_2
         then
-            local base_stats = NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item_2);
-            value = NeglectedGear:ValueItem(item, weightings, base_stats);
-            local old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
+            old_value = NeglectedGear:ValueItem(old_item_2, weightings, base_stats);
         end
-
         value_diff_2 = value - old_value;
     end
 
