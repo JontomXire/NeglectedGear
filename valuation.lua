@@ -90,7 +90,6 @@ function NeglectedGear:GetBaseStatsForCaps(class, spec, weightings, old_item)
     if nil ~= old_item
     then
         item_stats = GetItemStats(old_item) or {};
-        then
     end
 
     for cap, value in pairs(weightings)

@@ -4,6 +4,6 @@
 local NeglectedGear = _G.NeglectedGear
 
 NeglectedGear.major_version = 1;
-NeglectedGear.minor_version = 3;
+NeglectedGear.minor_version = 4;
 
 
