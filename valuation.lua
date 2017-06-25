@@ -37,7 +37,23 @@ function NeglectedGear:GetClass(target)
         return nil, nil;
     end
 
+    if ("Death Knight" == class) and ("Blood" == spec)
+    then
 -- Blood Dps will have the talent "Dancing Rune Weapon', Blood tanks will not.
+        return nil, nil;
+    end
+
+    if ("Druid" == class) and ("Feral Combat" == spec)
+    then
+        _, _, _, _, rank = GetTalentInfo(2, 16);
+        if 0 == rank
+        then
+            spec = "Feral_DPS";
+        else
+            spec = "Feral_TANK";
+        end
+    end
+
 -- Feral Druid Tanks will have the talent 'Natural Reaction', Feral dps will not.
 
     return class, spec;
